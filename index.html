@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins';
+            padding: 0px;
+            margin: 0px;
+            color: white;
+            font-size: 20px;
+            align-items: center;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .phone-body {
+            margin: 10px;
+            background-color: black;
+            width: 320px;
+            height: 590px;
+            border-radius: 50px;
+            border: 5px solid #f0f0f0;
+            box-shadow: 0px 0px 20px 1px #4f4f4f;
+            padding: 30px 20px 30px 20px;
+        }
+        
+        .display {
+            height: 12vh;
+            background-color: #000000;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-align: right;
+            text-decoration: none;
+            font-size: 50px;
+            pointer-events: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .phone-header {
+            height: 70px;
+        }
+        
+        .buttons-box {
+            margin-top: 10px;
+            background-color: red;
+        }
+        
+        .col {
+            aspect-ratio: inherit;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+        }
+        
+        .row {
+            border-radius: 50%;
+            background-color: #424242;
+            border: none;
+            color: white;
+            padding: 15px 15px;
+            margin: 3px;
+            text-align: center;
+            display: inline-block;
+            font-size: 30px;
+            font-weight: 500;
+        }
+        
+        .plus-mi {
+            font-size: 15px !important;
+        }
+        
+        .operator {
+            background-color: #fabc00;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="phone-body">
+            <div class="phone-header"></div>
+            <div class="display">
+                <h3 id="number">0</h3>
+            </div>
+            <div class="buttons-box"></div>
+            <div class="col">
+                <button class="row" onclick="clearconsole()">C</button>
+                <button class="row plus-mi" onclick="revarcenum()">+/-</button>
+                <button class="row " onclick="addoperator('%')"> % </button>
+                <button class="row operator" onclick="addoperator('/')">/</button>
+                <button class="row" onclick="addnumber(7)">7</button>
+                <button class="row" onclick="addnumber(8)">8</button>
+                <button class="row" onclick="addnumber(9)">9</button>
+                <button class="row operator" onclick="addoperator('*')">x</button>
+                <button class="row" onclick="addnumber(4)">4</button>
+                <button class="row" onclick="addnumber(5)">5</button>
+                <button class="row" onclick="addnumber(6)">6</button>
+                <button class="row operator" onclick="addoperator('-')">-</button>
+                <button class="row" onclick="addnumber(1)">1</button>
+                <button class="row" onclick="addnumber(2)">2</button>
+                <button class="row" onclick="addnumber(3)">3</button>
+                <button class="row operator" onclick="addoperator('+')">+</button>
+                <button class="row" onclick="addnumber(0)" style="grid-column: span 2; border-radius: 50px;text-align: left;padding-left: 25px;">0</button>
+                <button class="row">.</button>
+                <button class="row operator" onclick="calculateRes()">=</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let a = 0;
+        let b = 0;
+        let sw = 0;
+        let operator = 0;
+
+        function render(val) {
+            document.querySelector('#number').innerHTML = val;
+        }
+
+        function addoperator(res) {
+            operator = res;
+            if (sw == 1) {
+                calculateRes();
+            } else {
+                sw = 1;
+            }
+        }
+
+        function clearconsole() {
+            a = 0;
+            b = 0;
+            sw = 0;
+            operator = 0;
+            render(0);
+        }
+
+        function revarcenum() {
+
+            if (sw == 0) {
+                a = -a;
+                render(a);
+            } else {
+                b = -b;
+                render(b);
+            }
+        }
+
+        function addnumber(res) {
+
+            if (sw == 0) {
+                a = res;
+            } else {
+                b = res;
+
+            }
+            render(res)
+        }
+
+        function calculateRes() {
+            let result;
+            switch (operator) {
+                case '+':
+                    result = a + b;
+                    break;
+                case '-':
+                    result = a - b;
+                    break;
+                case '*':
+                    result = a * b;
+                    break;
+                case '/':
+                    result = a / b;
+                    break;
+            }
+            console.log(result);
+            render(result);
+            a = result;
+            b = 0;
+            sw = 1;
+        }
+    </script>
+
+</body>
+
+</html>
