@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simple Calculator - By Rupan Santra</title>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -120,6 +120,7 @@
     <script>
         let a = 0;
         let b = 0;
+        let b_set = false;
         let sw = 0;
         let operator = 0;
 
@@ -130,7 +131,9 @@
         function addoperator(res) {
             operator = res;
             if (sw == 1) {
-                calculateRes();
+                if (b_set) {
+                    calculateRes();
+                }
             } else {
                 sw = 1;
             }
@@ -158,12 +161,16 @@
         function addnumber(res) {
 
             if (sw == 0) {
-                a = res;
+                a = a * 10 + res;
+                render(a)
+                    // a = res;
             } else {
-                b = res;
+                b = b * 10 + res;
+                b_set = true;
+                render(b)
 
             }
-            render(res)
+
         }
 
         function calculateRes() {
@@ -182,10 +189,10 @@
                     result = a / b;
                     break;
             }
-            console.log(result);
             render(result);
             a = result;
             b = 0;
+            b_set = false;
             sw = 1;
         }
     </script>
